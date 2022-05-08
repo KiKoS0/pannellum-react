@@ -57,7 +57,7 @@ window.pannellum = (function(window, document, undefined) {
       prevTime,
       speed = { 'yaw': 0, 'pitch': 0, 'hfov': 0 },
       animating = false,
-      orientation = false,
+      orientation = true,
       orientationYawOffset = 0,
       autoRotateStart,
       autoRotateSpeed = 0,
@@ -235,15 +235,15 @@ window.pannellum = (function(window, document, undefined) {
     controls.fullscreen.addEventListener('click', toggleFullscreen);
     controls.fullscreen.className = 'pnlm-fullscreen-toggle-button pnlm-sprite pnlm-fullscreen-toggle-button-inactive pnlm-controls pnlm-control';
     if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled)
-      {controls.container.appendChild(controls.fullscreen);}
+    {controls.container.appendChild(controls.fullscreen);}
 
     // Device orientation toggle
     controls.orientation = document.createElement('div');
     controls.orientation.addEventListener('click', function(e) {
       if (orientation)
-        {stopOrientation();}
+      {stopOrientation();}
       else
-        {startOrientation();}
+      {startOrientation();}
     });
     controls.orientation.addEventListener('mousedown', function(e) {e.stopPropagation();});
     controls.orientation.addEventListener('touchstart', function(e) {e.stopPropagation();});
@@ -256,7 +256,7 @@ window.pannellum = (function(window, document, undefined) {
         controls.container.appendChild(controls.orientation);
         orientationSupport = true;
         if (startOrientationIfSupported)
-          {startOrientation();}
+        {startOrientation();}
       } else {
         orientationSupport = false;
       }
@@ -440,7 +440,7 @@ window.pannellum = (function(window, document, undefined) {
       }
     
       if (config.draggable)
-        {uiContainer.classList.add('pnlm-grab');}
+      {uiContainer.classList.add('pnlm-grab');}
       uiContainer.classList.remove('pnlm-grabbing');
     }
 
@@ -461,7 +461,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     function onImageLoad() {
       if (!renderer)
-        {renderer = new libpannellum.renderer(renderContainer);}
+      {renderer = new libpannellum.renderer(renderContainer);}
 
       // Only add event listeners once
       if (!listenersAdded) {
@@ -502,7 +502,7 @@ window.pannellum = (function(window, document, undefined) {
 
         // Deal with MS pointer events
         if (window.navigator.pointerEnabled)
-          {container.style.touchAction = 'none';}
+        {container.style.touchAction = 'none';}
       }
 
       renderInit();
@@ -526,7 +526,7 @@ window.pannellum = (function(window, document, undefined) {
         if (navigator.userAgent.toLowerCase().match(/(iphone|ipod|ipad).* os 8_/)) {
           var flagIndex = img.indexOf('\xff\xc2');
           if (flagIndex < 0 || flagIndex > 65536)
-            {anError(config.strings.iOS8WebGLError);}
+          {anError(config.strings.iOS8WebGLError);}
         }
 
         var start = img.indexOf('<x:xmpmeta');
@@ -549,7 +549,7 @@ window.pannellum = (function(window, document, undefined) {
             return null;
           };
             
-            // Relevant XMP data
+          // Relevant XMP data
           var xmp = {
             fullWidth: getTag('GPano:FullPanoWidthPixels'),
             croppedWidth: getTag('GPano:CroppedAreaImageWidthPixels'),
@@ -567,11 +567,11 @@ window.pannellum = (function(window, document, undefined) {
                 
             // Set up viewer using GPano XMP data
             if (specifiedPhotoSphereExcludes.indexOf('haov') < 0)
-              {config.haov = xmp.croppedWidth / xmp.fullWidth * 360;}
+            {config.haov = xmp.croppedWidth / xmp.fullWidth * 360;}
             if (specifiedPhotoSphereExcludes.indexOf('vaov') < 0)
-              {config.vaov = xmp.croppedHeight / xmp.fullHeight * 180;}
+            {config.vaov = xmp.croppedHeight / xmp.fullHeight * 180;}
             if (specifiedPhotoSphereExcludes.indexOf('vOffset') < 0)
-              {config.vOffset = ((xmp.topPixels + xmp.croppedHeight / 2) / xmp.fullHeight - 0.5) * -180;}
+            {config.vOffset = ((xmp.topPixels + xmp.croppedHeight / 2) / xmp.fullHeight - 0.5) * -180;}
             if (xmp.heading !== null && specifiedPhotoSphereExcludes.indexOf('northOffset') < 0) {
               // TODO: make sure this works correctly for partial panoramas
               config.northOffset = xmp.heading;
@@ -581,9 +581,9 @@ window.pannellum = (function(window, document, undefined) {
             }
             if (xmp.horizonPitch !== null && xmp.horizonRoll !== null) {
               if (specifiedPhotoSphereExcludes.indexOf('horizonPitch') < 0)
-                {config.horizonPitch = xmp.horizonPitch;}
+              {config.horizonPitch = xmp.horizonPitch;}
               if (specifiedPhotoSphereExcludes.indexOf('horizonRoll') < 0)
-                {config.horizonRoll = xmp.horizonRoll;}
+              {config.horizonRoll = xmp.horizonRoll;}
             }
                 
             // TODO: add support for initial view settings
@@ -594,9 +594,9 @@ window.pannellum = (function(window, document, undefined) {
         panoImage.src = window.URL.createObjectURL(image);
       });
       if (reader.readAsBinaryString !== undefined)
-        {reader.readAsBinaryString(image);}
+      {reader.readAsBinaryString(image);}
       else
-        {reader.readAsText(image);}
+      {reader.readAsText(image);}
     }
 
     /**
@@ -607,7 +607,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     function anError(errorMsg) {
       if (errorMsg === undefined)
-        {errorMsg = config.strings.genericWebGLError;}
+      {errorMsg = config.strings.genericWebGLError;}
       infoDisplay.errorMsg.innerHTML = '<p>' + errorMsg + '</p>';
       controls.load.style.display = 'none';
       infoDisplay.load.box.style.display = 'none';
@@ -748,9 +748,9 @@ window.pannellum = (function(window, document, undefined) {
       var pitch = Math.atan((y * c + focal * s) / root) * 180 / Math.PI;
       var yaw = Math.atan2(x / root, a / root) * 180 / Math.PI + config.yaw;
       if (yaw < -180)
-        {yaw += 360;}
+      {yaw += 360;}
       if (yaw > 180)
-        {yaw -= 360;}
+      {yaw -= 360;}
       return [pitch, yaw];
     }
 
@@ -956,9 +956,9 @@ window.pannellum = (function(window, document, undefined) {
         var defined = false;
         for (var i = 0; i < pointerIDs.length; i++) {
           if (event.pointerId == pointerIDs[i])
-            {pointerIDs[i] = undefined;}
+          {pointerIDs[i] = undefined;}
           if (pointerIDs[i])
-            {defined = true;}
+          {defined = true;}
         }
         if (!defined) {
           pointerIDs = [];
@@ -1021,7 +1021,7 @@ window.pannellum = (function(window, document, undefined) {
 
       // Override default action for keys that are used
       if (config.capturedKeyNumbers.indexOf(keynumber) < 0)
-        {return;}
+      {return;}
       event.preventDefault();
     
       // If escape key is pressed
@@ -1057,7 +1057,7 @@ window.pannellum = (function(window, document, undefined) {
     
       // Override default action for keys that are used
       if (config.capturedKeyNumbers.indexOf(keynumber) < 0)
-        {return;}
+      {return;}
       event.preventDefault();
     
       // Change key
@@ -1204,7 +1204,7 @@ window.pannellum = (function(window, document, undefined) {
       }
 
       if (isKeyDown)
-        {latestInteraction = Date.now();}
+      {latestInteraction = Date.now();}
 
       // If auto-rotate
       var inactivityInterval = Date.now() - latestInteraction;
@@ -1304,7 +1304,7 @@ window.pannellum = (function(window, document, undefined) {
           callbackArgs = animatedMove[axis].callbackArgs;
         delete animatedMove[axis];
         if (typeof callback === 'function')
-          {callback(callbackArgs);}
+        {callback(callbackArgs);}
       }
       config[axis] = result;
     }
@@ -1328,7 +1328,7 @@ window.pannellum = (function(window, document, undefined) {
     //renderer.resize();
     //animateInit();
 
-    // Kludge to deal with WebKit regression: https://bugs.webkit.org/show_bug.cgi?id=93525
+      // Kludge to deal with WebKit regression: https://bugs.webkit.org/show_bug.cgi?id=93525
       onFullScreenChange();
     }
 
@@ -1351,7 +1351,7 @@ window.pannellum = (function(window, document, undefined) {
     function animate() {
       render();
       if (autoRotateStart)
-        {clearTimeout(autoRotateStart);}
+      {clearTimeout(autoRotateStart);}
       if (isUserInteracting || orientation === true) {
         requestAnimationFrame(animate);
       } else if (keysDown[0] || keysDown[1] || keysDown[2] || keysDown[3] ||
@@ -1457,9 +1457,9 @@ window.pannellum = (function(window, document, undefined) {
           minPitch = maxPitch = (minPitch + maxPitch) / 2;
         }
         if (isNaN(minPitch))
-          {minPitch = -90;}
+        {minPitch = -90;}
         if (isNaN(maxPitch))
-          {maxPitch = 90;}
+        {maxPitch = 90;}
         config.pitch = Math.max(minPitch, Math.min(maxPitch, config.pitch));
         
         renderer.render(config.pitch * Math.PI / 180, config.yaw * Math.PI / 180, config.hfov * Math.PI / 180, { roll: config.roll * Math.PI / 180 });
@@ -1594,11 +1594,11 @@ window.pannellum = (function(window, document, undefined) {
       try {
         var params = {};
         if (config.horizonPitch !== undefined)
-          {params.horizonPitch = config.horizonPitch * Math.PI / 180;}
+        {params.horizonPitch = config.horizonPitch * Math.PI / 180;}
         if (config.horizonRoll !== undefined)
-          {params.horizonRoll = config.horizonRoll * Math.PI / 180;}
+        {params.horizonRoll = config.horizonRoll * Math.PI / 180;}
         if (config.backgroundColor !== undefined)
-          {params.backgroundColor = config.backgroundColor;}
+        {params.backgroundColor = config.backgroundColor;}
         renderer.init(panoImage, config.type, config.dynamic, config.haov * Math.PI / 180, config.vaov * Math.PI / 180, config.vOffset * Math.PI / 180, renderInitCallback, params);
         if (config.dynamic !== true) {
           // Allow image to be garbage collected
@@ -1674,20 +1674,20 @@ window.pannellum = (function(window, document, undefined) {
       var div = document.createElement('div');
       div.className = 'pnlm-hotspot-base';
       if (hs.cssClass)
-        {div.className += ' ' + hs.cssClass;}
+      {div.className += ' ' + hs.cssClass;}
       else
-        {div.className += ' pnlm-hotspot pnlm-sprite pnlm-' + escapeHTML(hs.type);}
+      {div.className += ' pnlm-hotspot pnlm-sprite pnlm-' + escapeHTML(hs.type);}
 
       var span = document.createElement('span');
       if (hs.text)
-        {span.innerHTML = escapeHTML(hs.text);}
+      {span.innerHTML = escapeHTML(hs.text);}
 
       var a;
       if (hs.video) {
         var video = document.createElement('video'),
           p = hs.video;
         if (config.basePath && !absoluteURL(p))
-          {p = config.basePath + p;}
+        {p = config.basePath + p;}
         video.src = sanitizeURL(p);
         video.controls = true;
         video.style.width = hs.width + 'px';
@@ -1696,7 +1696,7 @@ window.pannellum = (function(window, document, undefined) {
       } else if (hs.image) {
         var p = hs.image;
         if (config.basePath && !absoluteURL(p))
-          {p = config.basePath + p;}
+        {p = config.basePath + p;}
         a = document.createElement('a');
         a.href = sanitizeURL(hs.URL ? hs.URL : p);
         a.target = '_blank';
@@ -1931,7 +1931,7 @@ window.pannellum = (function(window, document, undefined) {
       if (isPreview && 'preview' in config) {
         var p = config.preview;
         if (config.basePath && !absoluteURL(p))
-          {p = config.basePath + p;}
+        {p = config.basePath + p;}
         preview = document.createElement('div');
         preview.className = 'pnlm-preview-img';
         preview.style.backgroundImage = "url('" + sanitizeURLForCss(p) + "')";
@@ -1943,18 +1943,18 @@ window.pannellum = (function(window, document, undefined) {
         author = config.author;
       if (isPreview) {
         if ('previewTitle' in config)
-          {config.title = config.previewTitle;}
+        {config.title = config.previewTitle;}
         if ('previewAuthor' in config)
-          {config.author = config.previewAuthor;}
+        {config.author = config.previewAuthor;}
       }
 
       // Reset title / author display
       if (!config.hasOwnProperty('title'))
-        {infoDisplay.title.innerHTML = '';}
+      {infoDisplay.title.innerHTML = '';}
       if (!config.hasOwnProperty('author'))
-        {infoDisplay.author.innerHTML = '';}
+      {infoDisplay.author.innerHTML = '';}
       if (!config.hasOwnProperty('title') && !config.hasOwnProperty('author'))
-        {infoDisplay.container.style.display = 'none';}
+      {infoDisplay.container.style.display = 'none';}
 
       // Fill in load button label and loading box text
       controls.load.innerHTML = '<p>' + config.strings.loadButtonLabel + '</p>';
@@ -2026,9 +2026,9 @@ window.pannellum = (function(window, document, undefined) {
 
             case 'hotSpotDebug':
               if (config[key])
-                {hotSpotDebugIndicator.style.display = 'block';}
+              {hotSpotDebugIndicator.style.display = 'block';}
               else
-                {hotSpotDebugIndicator.style.display = 'none';}
+              {hotSpotDebugIndicator.style.display = 'none';}
               break;
 
             case 'showControls':
@@ -2042,9 +2042,9 @@ window.pannellum = (function(window, document, undefined) {
             case 'orientationOnByDefault':
               if (config[key]) {
                 if (orientationSupport === undefined)
-                  {startOrientationIfSupported = true;}
+                {startOrientationIfSupported = true;}
                 else if (orientationSupport === true)
-                  {startOrientation();}
+                {startOrientation();}
               }
               break;
           }
@@ -2054,13 +2054,13 @@ window.pannellum = (function(window, document, undefined) {
       if (isPreview) {
         // Restore original values if changed for preview
         if (title)
-          {config.title = title;}
+        {config.title = title;}
         else
-          {delete config.title;}
+        {delete config.title;}
         if (author)
-          {config.author = author;}
+        {config.author = author;}
         else
-          {delete config.author;}
+        {delete config.author;}
       }
     }
 
@@ -2315,7 +2315,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     function escapeHTML(s) {
       if (!initialConfig.escapeHTML)
-        {return String(s).split('\n').join('<br>');}
+      {return String(s).split('\n').join('<br>');}
       return String(s).split(/&/g).join('&amp;')
         .split('"').join('&quot;')
         .split("'").join('&#39;')
@@ -2450,9 +2450,9 @@ window.pannellum = (function(window, document, undefined) {
       if (animated) {
         // Animate in shortest direction
         if (config.yaw - yaw > 180)
-          {yaw += 360}
+        {yaw += 360;}
         else if (yaw - config.yaw > 180)
-          {yaw -= 360}
+        {yaw -= 360;}
 
         animatedMove.yaw = {
           'startTime': Date.now(),
@@ -2577,7 +2577,7 @@ window.pannellum = (function(window, document, undefined) {
         callback = undefined;
       }
       if (hfov !== undefined)
-        {this.setHfov(hfov, animated, callback, callbackArgs);}
+      {this.setHfov(hfov, animated, callback, callbackArgs);}
       return this;
     };
 
@@ -2700,9 +2700,9 @@ window.pannellum = (function(window, document, undefined) {
     this.setUpdate = function(bool) {
       update = bool === true;
       if (renderer === undefined)
-        {onImageLoad();}
+      {onImageLoad();}
       else
-        {animateInit();}
+      {animateInit();}
       return this;
     };
 
@@ -2729,7 +2729,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     this.loadScene = function(sceneId, pitch, yaw, hfov) {
       if (loaded !== false)
-        {loadScene(sceneId, pitch, yaw, hfov);}
+      {loadScene(sceneId, pitch, yaw, hfov);}
       return this;
     };
 
@@ -2765,7 +2765,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     this.removeScene = function(sceneId) {
       if (config.scene === sceneId || !initialConfig.scenes.hasOwnProperty(sceneId))
-        {return false;}
+      {return false;}
       delete initialConfig.scenes[sceneId];
       return true;
     };
@@ -2821,7 +2821,7 @@ window.pannellum = (function(window, document, undefined) {
           if (!initialConfig.scenes[id].hasOwnProperty('hotSpots')) {
             initialConfig.scenes[id].hotSpots = []; // Create hot spots array if needed
             if (id == config.scene)
-              {config.hotSpots = initialConfig.scenes[id].hotSpots;}    // Link to current config
+            {config.hotSpots = initialConfig.scenes[id].hotSpots;}    // Link to current config
           }
           initialConfig.scenes[id].hotSpots.push(hs); // Add hot spot to config
         } else {
@@ -2832,7 +2832,7 @@ window.pannellum = (function(window, document, undefined) {
         // Add to current scene
         createHotSpot(hs);
         if (loaded)
-          {renderHotSpot(hs);}
+        {renderHotSpot(hs);}
       }
       return this;
     };
@@ -2848,14 +2848,14 @@ window.pannellum = (function(window, document, undefined) {
     this.removeHotSpot = function(hotSpotId, sceneId) {
       if (sceneId === undefined || config.scene == sceneId) {
         if (!config.hotSpots)
-          {return false;}
+        {return false;}
         for (var i = 0; i < config.hotSpots.length; i++) {
           if (config.hotSpots[i].hasOwnProperty('id') &&
                 config.hotSpots[i].id === hotSpotId) {
             // Delete hot spot DOM elements
             var current = config.hotSpots[i].div;
             while (current.parentNode != renderContainer)
-              {current = current.parentNode;}
+            {current = current.parentNode;}
             renderContainer.removeChild(current);
             delete config.hotSpots[i].div;
             // Remove hot spot from configuration
@@ -2866,7 +2866,7 @@ window.pannellum = (function(window, document, undefined) {
       } else {
         if (initialConfig.scenes.hasOwnProperty(sceneId)) {
           if (!initialConfig.scenes[sceneId].hasOwnProperty('hotSpots'))
-            {return false;}
+          {return false;}
           for (var i = 0; i < initialConfig.scenes[sceneId].hotSpots.length; i++) {
             if (initialConfig.scenes[sceneId].hotSpots[i].hasOwnProperty('id') &&
                     initialConfig.scenes[sceneId].hotSpots[i].id === hotSpotId) {
@@ -2888,7 +2888,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     this.resize = function() {
       if (renderer)
-        {onDocumentResize();}
+      {onDocumentResize();}
     };
 
     /**
@@ -2927,7 +2927,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     this.startOrientation = function() {
       if (orientationSupport)
-        {startOrientation();}
+      {startOrientation();}
     };
 
     /**
@@ -3005,7 +3005,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     this.destroy = function() {
       if (renderer)
-        {renderer.destroy()};
+      {renderer.destroy();};
       if (listenersAdded) {
         dragFix.removeEventListener('mousedown', onDocumentMouseDown, false);
         dragFix.removeEventListener('dblclick', onDocumentDoubleClick, false);
