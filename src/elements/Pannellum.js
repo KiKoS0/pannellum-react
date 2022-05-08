@@ -303,6 +303,7 @@ class Pannellum extends PureComponent {
   forceRender = () => {
     this.renderImage("update");
   };
+  
 
   render() {
     let { width, height } = this.props;
