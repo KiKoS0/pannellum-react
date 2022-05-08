@@ -2383,21 +2383,20 @@ window.pannellum = (function(window, document, undefined) {
  * @param {object} [callbackArgs] - Arguments to pass to callback function
  * @returns {Viewer} `this`
  */
-    this.setPitch = function(pitch, animated, callback, callbackArgs) {
-      animated = animated == undefined ? 1000: Number(animated);
-      if (animated) {
-        animatedMove.pitch = {
-          'startTime': Date.now(),
-          'startPosition': config.pitch,
-          'endPosition': pitch,
-          'duration': animated,
-          'callback': callback,
-          'callbackArgs': callbackArgs
-        };
-      } else {
-        config.pitch = pitch;
-      }
-      animateInit();
+    this.setPitch = function(pitch) {
+      config.pitch = pitch;
+      return this;
+    };
+
+    /**
+    * Sets the roll of the center of the view.
+    * @memberof Viewer
+    * @instance
+    * @param {number} roll - Roll in degrees
+    * @returns {Viewer} `this`
+    */
+    this.setRoll = function(roll) {
+      config.roll = roll;
       return this;
     };
 
@@ -2444,28 +2443,8 @@ window.pannellum = (function(window, document, undefined) {
  * @param {object} [callbackArgs] - Arguments to pass to callback function
  * @returns {Viewer} `this`
  */
-    this.setYaw = function(yaw, animated, callback, callbackArgs) {
-      animated = animated == undefined ? 1000: Number(animated);
-      yaw = ((yaw + 180) % 360) - 180; // Keep in bounds
-      if (animated) {
-        // Animate in shortest direction
-        if (config.yaw - yaw > 180)
-        {yaw += 360;}
-        else if (yaw - config.yaw > 180)
-        {yaw -= 360;}
-
-        animatedMove.yaw = {
-          'startTime': Date.now(),
-          'startPosition': config.yaw,
-          'endPosition': yaw,
-          'duration': animated,
-          'callback': callback,
-          'callbackArgs': callbackArgs
-        };
-      } else {
-        config.yaw = yaw;
-      }
-      animateInit();
+    this.setYaw = function(yaw) {
+      config.yaw = yaw;
       return this;
     };
 

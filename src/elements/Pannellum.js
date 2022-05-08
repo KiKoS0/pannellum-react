@@ -31,6 +31,7 @@ class Pannellum extends PureComponent {
     vOffset: propTypes.number,
     yaw: propTypes.number,
     pitch: propTypes.number,
+    roll: propTypes.number,
     hfov: propTypes.number,
     minHfov: propTypes.number,
     maxHfov: propTypes.number,
@@ -174,6 +175,7 @@ class Pannellum extends PureComponent {
       vOffset: this.props.vOffset,
       yaw: this.props.yaw,
       pitch: this.props.pitch,
+      roll: this.props.roll,
       hfov: this.props.hfov,
       minHfov: this.props.minHfov,
       maxHfov: this.props.maxHfov,
@@ -265,6 +267,11 @@ class Pannellum extends PureComponent {
     if (prevProps.pitch !== this.props.pitch) {
       this.panorama.setPitch(this.props.pitch);
     }
+
+    if (prevProps.roll !== this.props.roll) {
+      this.panorama.setRoll(this.props.pitch);
+    }
+
     if (prevProps.hfov !== this.props.hfov) {
       this.panorama.setHfov(this.props.hfov);
     }
