@@ -1586,7 +1586,7 @@ window.pannellum = (function(window, document, undefined) {
       }
     }
 
-    function orientationListenerExternal(e) {
+    this.orientationListenerExternal = function (e)  {
       var q = computeQuaternion(e.alpha, e.beta, e.gamma).toEulerAngles();
       if (typeof(orientation) === 'number' && orientation < 10) {
         // This kludge is necessary because iOS sometimes provides a few stale
@@ -1604,7 +1604,7 @@ window.pannellum = (function(window, document, undefined) {
         config.roll = -q[1] / Math.PI * 180;
         config.yaw = -q[2] / Math.PI * 180 + orientationYawOffset;
       }
-    }
+    };
 
     /**
  * Initializes renderer.
