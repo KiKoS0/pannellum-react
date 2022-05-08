@@ -33,6 +33,7 @@ class Pannellum extends PureComponent {
     pitch: propTypes.number,
     roll: propTypes.number,
     hfov: propTypes.number,
+    event: propTypes.object,
     minHfov: propTypes.number,
     maxHfov: propTypes.number,
     minPitch: propTypes.number,
@@ -83,6 +84,8 @@ class Pannellum extends PureComponent {
     vOffset: 0,
     yaw: 0,
     pitch: 0,
+    roll: 0,
+    event: null,
     hfov: 100,
     minHfov: 50,
     maxHfov: 150,
@@ -275,6 +278,11 @@ class Pannellum extends PureComponent {
     if (prevProps.hfov !== this.props.hfov) {
       this.panorama.setHfov(this.props.hfov);
     }
+
+    if (prevProps.event !== this.props.event) {
+      this.panorama.orientationListenerExternal(this.props.event);
+    }
+
   }
 
   handleClickHotspot = (e, args) => {

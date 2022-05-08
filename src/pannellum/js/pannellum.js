@@ -57,7 +57,7 @@ window.pannellum = (function(window, document, undefined) {
       prevTime,
       speed = { 'yaw': 0, 'pitch': 0, 'hfov': 0 },
       animating = false,
-      orientation = true,
+      orientation = false,
       orientationYawOffset = 0,
       autoRotateStart,
       autoRotateSpeed = 0,
@@ -1567,6 +1567,26 @@ window.pannellum = (function(window, document, undefined) {
  * @param {DeviceOrientationEvent} event - Device orientation event.
  */
     function orientationListener(e) {
+      var q = computeQuaternion(e.alpha, e.beta, e.gamma).toEulerAngles();
+      if (typeof(orientation) === 'number' && orientation < 10) {
+        // This kludge is necessary because iOS sometimes provides a few stale
+        // device orientation events when the listener is removed and then
+        // readded. Thus, we skip the first 10 events to prevent this from
+        // causing problems.
+        orientation += 1;
+      } else if (orientation === 10) {
+        // Record starting yaw to prevent jumping
+        orientationYawOffset = q[2] / Math.PI * 180 + config.yaw;
+        orientation = true;
+        requestAnimationFrame(animate);
+      } else {
+        config.pitch = q[0] / Math.PI * 180;
+        config.roll = -q[1] / Math.PI * 180;
+        config.yaw = -q[2] / Math.PI * 180 + orientationYawOffset;
+      }
+    }
+
+    function orientationListenerExternal(e) {
       var q = computeQuaternion(e.alpha, e.beta, e.gamma).toEulerAngles();
       if (typeof(orientation) === 'number' && orientation < 10) {
         // This kludge is necessary because iOS sometimes provides a few stale
