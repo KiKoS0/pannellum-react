@@ -269,7 +269,7 @@ class Pannellum extends PureComponent {
     }
 
     if (prevProps.roll !== this.props.roll) {
-      this.panorama.setRoll(this.props.pitch);
+      this.panorama.setRoll(this.props.roll);
     }
 
     if (prevProps.hfov !== this.props.hfov) {
@@ -303,7 +303,7 @@ class Pannellum extends PureComponent {
   forceRender = () => {
     this.renderImage("update");
   };
-  
+
 
   render() {
     let { width, height } = this.props;
