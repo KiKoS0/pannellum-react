@@ -2303,7 +2303,7 @@ window.pannellum = (function(window, document, undefined) {
  */
     function startOrientation() {
       orientation = 1;
-      window.addEventListener('deviceorientation', orientationListener);
+      // window.addEventListener('deviceorientation', orientationListener);
       controls.orientation.classList.add('pnlm-orientation-button-active');
     }
 
