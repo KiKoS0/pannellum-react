@@ -249,7 +249,7 @@ window.pannellum = (function(window, document, undefined) {
     controls.orientation.addEventListener('touchstart', function(e) {e.stopPropagation();});
     controls.orientation.addEventListener('pointerdown', function(e) {e.stopPropagation();});
     controls.orientation.className = 'pnlm-orientation-button pnlm-orientation-button-inactive pnlm-sprite pnlm-controls pnlm-control';
-    var orientationSupport, startOrientationIfSupported = true;
+    var orientationSupport = true;
 
     
     controls.container.appendChild(controls.orientation);
@@ -1938,6 +1938,8 @@ window.pannellum = (function(window, document, undefined) {
  * @private
  */
     function processOptions(isPreview) {
+      console.log("processOptions");
+      console.log("orientationSupport: ", orientationSupport);
       isPreview = isPreview ? isPreview : false;
 
       // Process preview first so it always loads before the browser hits its
