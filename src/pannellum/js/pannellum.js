@@ -251,11 +251,11 @@ window.pannellum = (function(window, document, undefined) {
     controls.orientation.className = 'pnlm-orientation-button pnlm-orientation-button-inactive pnlm-sprite pnlm-controls pnlm-control';
     var orientationSupport = true;
 
-    controls.container.appendChild(controls.orientation);
+    // controls.container.appendChild(controls.orientation);
+    // controls.orientation.classList.add('pnlm-orientation-button-active');
     orientationSupport = true;
     console.log("startOrientation");
     orientation = 1;
-    controls.orientation.classList.add('pnlm-orientation-button-active');
 
     // Compass
     var compass = document.createElement('div');
