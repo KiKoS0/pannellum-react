@@ -231,11 +231,11 @@ window.pannellum = (function(window, document, undefined) {
     controls.container.appendChild(controls.zoom);
 
     // Fullscreen toggle
-    // controls.fullscreen = document.createElement('div');
-    // controls.fullscreen.addEventListener('click', toggleFullscreen);
-    // controls.fullscreen.className = 'pnlm-fullscreen-toggle-button pnlm-sprite pnlm-fullscreen-toggle-button-inactive pnlm-controls pnlm-control';
-    // if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled)
-    // {controls.container.appendChild(controls.fullscreen);}
+    controls.fullscreen = document.createElement('div');
+    controls.fullscreen.addEventListener('click', toggleFullscreen);
+    controls.fullscreen.className = 'pnlm-fullscreen-toggle-button pnlm-sprite pnlm-fullscreen-toggle-button-inactive pnlm-controls pnlm-control';
+    if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled)
+    {controls.container.appendChild(controls.fullscreen);}
 
     // Device orientation toggle
     controls.orientation = document.createElement('div');
@@ -256,12 +256,6 @@ window.pannellum = (function(window, document, undefined) {
     console.log("startOrientation");
     orientation = 1;
     controls.orientation.classList.add('pnlm-orientation-button-active');
-
-    // if (window.DeviceOrientationEvent) {
-    //   window.addEventListener('deviceorientation', deviceOrientationTest);
-    // } else {
-    //   orientationSupport = true;
-    // }
 
     // Compass
     var compass = document.createElement('div');
