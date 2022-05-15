@@ -250,23 +250,17 @@ window.pannellum = (function(window, document, undefined) {
     controls.orientation.addEventListener('pointerdown', function(e) {e.stopPropagation();});
     controls.orientation.className = 'pnlm-orientation-button pnlm-orientation-button-inactive pnlm-sprite pnlm-controls pnlm-control';
     var orientationSupport, startOrientationIfSupported = true;
-    function deviceOrientationTest(e) {
-      // window.removeEventListener('deviceorientation', deviceOrientationTest);
-      if (e && e.alpha !== null && e.beta !== null && e.gamma !== null) {
-        controls.container.appendChild(controls.orientation);
-        orientationSupport = true;
-        if (startOrientationIfSupported)
-        {startOrientation();}
-      } else {
-        orientationSupport = true;
-      }
-    }
-    deviceOrientationTest({ alpha: 1, beta: 1, gamma: 1 });
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', deviceOrientationTest);
-    } else {
-      orientationSupport = true;
-    }
+
+    
+    controls.container.appendChild(controls.orientation);
+    orientationSupport = true;
+    startOrientation();
+
+    // if (window.DeviceOrientationEvent) {
+    //   window.addEventListener('deviceorientation', deviceOrientationTest);
+    // } else {
+    //   orientationSupport = true;
+    // }
 
     // Compass
     var compass = document.createElement('div');
@@ -2313,6 +2307,7 @@ window.pannellum = (function(window, document, undefined) {
  * @private
  */
     function stopOrientation() {
+      console.log("stopOrientation");
       window.removeEventListener('deviceorientation', orientationListener);
       controls.orientation.classList.remove('pnlm-orientation-button-active');
       orientation = false;
@@ -2323,6 +2318,7 @@ window.pannellum = (function(window, document, undefined) {
  * @private
  */
     function startOrientation() {
+      console.log("startOrientation");
       orientation = 1;
       // window.addEventListener('deviceorientation', orientationListener);
       controls.orientation.classList.add('pnlm-orientation-button-active');
