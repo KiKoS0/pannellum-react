@@ -249,7 +249,7 @@ window.pannellum = (function(window, document, undefined) {
     controls.orientation.addEventListener('touchstart', function(e) {e.stopPropagation();});
     controls.orientation.addEventListener('pointerdown', function(e) {e.stopPropagation();});
     controls.orientation.className = 'pnlm-orientation-button pnlm-orientation-button-inactive pnlm-sprite pnlm-controls pnlm-control';
-    var orientationSupport, startOrientationIfSupported = false;
+    var orientationSupport, startOrientationIfSupported = true;
     function deviceOrientationTest(e) {
       window.removeEventListener('deviceorientation', deviceOrientationTest);
       if (e && e.alpha !== null && e.beta !== null && e.gamma !== null) {
@@ -258,13 +258,13 @@ window.pannellum = (function(window, document, undefined) {
         if (startOrientationIfSupported)
         {startOrientation();}
       } else {
-        orientationSupport = false;
+        orientationSupport = true;
       }
     }
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', deviceOrientationTest);
     } else {
-      orientationSupport = false;
+      orientationSupport = true;
     }
 
     // Compass
