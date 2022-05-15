@@ -251,7 +251,7 @@ window.pannellum = (function(window, document, undefined) {
     controls.orientation.className = 'pnlm-orientation-button pnlm-orientation-button-inactive pnlm-sprite pnlm-controls pnlm-control';
     var orientationSupport, startOrientationIfSupported = true;
     function deviceOrientationTest(e) {
-      window.removeEventListener('deviceorientation', deviceOrientationTest);
+      // window.removeEventListener('deviceorientation', deviceOrientationTest);
       if (e && e.alpha !== null && e.beta !== null && e.gamma !== null) {
         controls.container.appendChild(controls.orientation);
         orientationSupport = true;
@@ -261,6 +261,7 @@ window.pannellum = (function(window, document, undefined) {
         orientationSupport = true;
       }
     }
+    deviceOrientationTest({ alpha: 1, beta: 1, gamma: 1 });
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', deviceOrientationTest);
     } else {
